@@ -8,7 +8,8 @@ enum TokenType{
     OPERATOR,
     NUMBER,
     SEPARATOR,
-    END_OF_INPUT
+    END_OF_INPUT,
+    BRACKET
 };
 
 class Token{
