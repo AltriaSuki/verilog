@@ -177,6 +177,30 @@ src/Token.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Token.cpp.s
 .PHONY : src/Token.cpp.s
 
+src/helper.o: src/helper.cpp.o
+.PHONY : src/helper.o
+
+# target to build an object file
+src/helper.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/helper.cpp.o
+.PHONY : src/helper.cpp.o
+
+src/helper.i: src/helper.cpp.i
+.PHONY : src/helper.i
+
+# target to preprocess a source file
+src/helper.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/helper.cpp.i
+.PHONY : src/helper.cpp.i
+
+src/helper.s: src/helper.cpp.s
+.PHONY : src/helper.s
+
+# target to generate assembly for a file
+src/helper.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/helper.cpp.s
+.PHONY : src/helper.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -216,6 +240,9 @@ help:
 	@echo "... src/Token.o"
 	@echo "... src/Token.i"
 	@echo "... src/Token.s"
+	@echo "... src/helper.o"
+	@echo "... src/helper.i"
+	@echo "... src/helper.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/Token.cpp.o"
   "CMakeFiles/verilog_compiler.dir/src/Token.cpp.o.d"
+  "CMakeFiles/verilog_compiler.dir/src/helper.cpp.o"
+  "CMakeFiles/verilog_compiler.dir/src/helper.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/main.cpp.o"
   "CMakeFiles/verilog_compiler.dir/src/main.cpp.o.d"
   "verilog_compiler"
