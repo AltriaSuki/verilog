@@ -1,4 +1,5 @@
 #include "Lexer.h"
+#include "helper.h"
 
 #include <iostream>
 /**
@@ -39,7 +40,7 @@ Token Lexer::parseNumber(){
 
 Token Lexer::parseOperator(){
     std::string op;
-    while(ispunct(currentChar)){
+    while(is_operator(currentChar)){
         op+=currentChar;
         advance();
     }
@@ -85,7 +86,7 @@ Token Lexer::NextToken(){
         return parseIdentifier();
     }else if(isdigit(currentChar)){
         return parseNumber();
-    }else if(ispunct(currentChar)){
+    }else if(is_operator(currentChar)){
         return parseOperator();
     }else if(currentChar == ';'||currentChar == ','){
         return parseSeparator();
