@@ -71,6 +71,21 @@ void Lexer::skipWhitespace(){
     }
 }
 
+void Lexer::skipComment(){
+    if(currentChar == '/'&&input[position+1]=='/'){
+        while(currentChar != '\n'||currentChar!='\0'){
+            advance();
+        }
+    }
+    if(currentChar == '/'&&input[position+1]=='*'){
+        while(currentChar !='*'&&input[position+1]!='/'){
+            advance();
+        }
+        advance();
+        advance();
+    }
+}
+
 
 /**
  * 
@@ -81,6 +96,7 @@ void Lexer::skipWhitespace(){
  */
 Token Lexer::NextToken(){
     skipWhitespace();
+    skipComment();
 
     if(currentChar=='\0'){
         return Token(END_OF_INPUT,"");

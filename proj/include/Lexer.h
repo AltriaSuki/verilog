@@ -15,6 +15,7 @@ class Lexer {
         Token parseOperator();
         Token parseSeparator();
         Token parseBracket();
+        void skipComment();
         void skipWhitespace();
         std::string GetWholeExpression();
         //Token GetTokenFromSubExpression(string str);
