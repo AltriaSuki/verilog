@@ -44,6 +44,10 @@ Token Lexer::parseOperator(){
         op+=currentChar;
         advance();
     }
+    if(!operators.count(op)){
+        std::cerr<<"Unknown operator: "<<op<<std::endl;
+        exit(1);
+    }
     return Token(OPERATOR,op);
 }
 
