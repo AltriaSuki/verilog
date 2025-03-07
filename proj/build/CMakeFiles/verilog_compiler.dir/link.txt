@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.o CMakeFiles/verilog_compiler.dir/src/Token.cpp.o CMakeFiles/verilog_compiler.dir/src/helper.cpp.o CMakeFiles/verilog_compiler.dir/src/main.cpp.o -o verilog_compiler 
