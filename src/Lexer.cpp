@@ -18,7 +18,7 @@ void Lexer::advance(){
 
 Token Lexer::parseIdentifier(){
     std::string identifier;
-    while(isalnum(currentChar)||currentChar == '_'||currentChar == '$'){
+    while(isalnum(currentChar)||currentChar == '_'||currentChar == '$'||currentChar =='@'){
         identifier += currentChar;
         advance();
     }
@@ -102,7 +102,7 @@ Token Lexer::NextToken(){
         return Token(END_OF_INPUT,"");
     }
 
-    if(isalpha(currentChar)||currentChar == '_'||currentChar == '$'){
+    if(isalpha(currentChar)||currentChar == '_'||currentChar == '$'||currentChar =='@'){
         return parseIdentifier();
     }else if(isdigit(currentChar)){
         return parseNumber();

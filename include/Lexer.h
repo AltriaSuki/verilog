@@ -23,7 +23,7 @@ class Lexer {
         char currentChar;
         const std::string input;
         size_t position;
-        std::unordered_set<std::string> keywords = { "module","if","else","begin","end" "reg","integer","parameter","initial","always","input", "output", "wire", "assign", "endmodule" };
+        std::unordered_set<std::string> keywords = { "module","if","else","begin","end" "reg","integer","parameter","initial","always","input", "output", "wire", "assign", "endmodule","@" };
         std::unordered_set<std::string> operators=
         {"+","-","*","/","%","==","!=","<",">","<=",">=","&&","||","!","&","|","^","<<",">>","~","="};
     };
