@@ -17,8 +17,8 @@ class Parser{
         AstNode* parseModuleDeclaration();
         AstNode* parseModuleBody();
         AstNode* parseDeclaration();
-        AstNode* parsePostList();
-        AstNode* parsePostListTail();
+        AstNode* parsePortList();
+        AstNode* parsePortListTail();
         AstNode* parseDataType();
         AstNode* parseIdentifier();
         AstNode* parseIdentifierTail();

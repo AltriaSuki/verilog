@@ -25,5 +25,20 @@ AstNode* Parser::parseProgram(){
 }
 
 AstNode* Parser::parseModuleDeclaration(){
-    return nullptr;
+    if(currentToken.type==KEYWORD&&currentToken.value=="module"){
+        AstNode* node=new AstNode();
+        node->value="module";
+        currentToken=tokens[++currentTokenIndex];
+        if(currentToken.type==IDENTIFIER){
+            node->value+=currentToken.value;
+            currentToken=tokens[++currentTokenIndex];
+        }
+        AstNode* child=parsePortList();
+        if(child!=nullptr){
+            node->children.push_back(child);
+        }
+    }else{
+        std::cout<<"Error: Expected module declaration"<<std::endl;
+        return nullptr;
+    }
 }
