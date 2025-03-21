@@ -1,7 +1,7 @@
 #include"Lexer.h"
 #include"Parser.h"
 int main(){
-    Lexer lexer("module test(a,b,c) ; assign a = b + c ;if(a>0) assign a=b+c endmodule");
+    Lexer lexer("module test(a,b,c) ; assign a=b+c; endmodule");
     Parser parser(lexer);
     AstNode* node=parser.parseProgram();
     node->print(0);

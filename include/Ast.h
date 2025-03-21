@@ -6,8 +6,8 @@
 class AstNode{
     public:
         std::string value;
-        std::string type;
         std::vector<AstNode*> children;
+        std::string type;
     public:
         void print(int depth){
             for(int i=0;i<depth;++i){
@@ -15,6 +15,11 @@ class AstNode{
             }
             std::cout<<value<<std::endl;
             for(auto child:children){
+                if (child == nullptr)
+                {
+                    continue;
+                }
+
                 child->print(depth+1);
             }
         }
