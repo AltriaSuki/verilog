@@ -10,7 +10,7 @@ Parser::Parser(Lexer& lexer){
     }
     tokens.push_back(token);//push back the END_OF_INPUT token
     currentTokenIndex=0;
-    currentToken=tokens[currentTokenIndex++];
+    currentToken=tokens[currentTokenIndex];
 }
 
 AstNode* Parser::parseProgram(){
@@ -33,7 +33,7 @@ AstNode* Parser::parseModuleDeclaration(){
         return nullptr;
     }
     //读取下一个token
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
     if (currentToken.type != TokenType::IDENTIFIER)
     {
         std::cout << "wrrong input:it is not a right moudule name" << std::endl;
@@ -49,7 +49,7 @@ AstNode* Parser::parseModuleDeclaration(){
     //子节点参数列表,参数列表在子节点并排表示
     node->children.push_back(parsePortList());
     //ct=";"
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
 
     //子节点模块体
     while (currentToken.value != "endmodule")
@@ -66,9 +66,11 @@ AstNode* Parser::parseModuleDeclaration(){
 AstNode* Parser::parseModuleBody()
 {
     //获取模块体的每一行第一个
-    currentToken= tokens[currentTokenIndex++];
+    if(currentToken.value==";")
+    {
+        currentToken = tokens[++currentTokenIndex];
+    }
     AstNode* node = new AstNode();
-    node->value = "statement";
     if (currentToken.type != TokenType::KEYWORD)
     {
         std::cout << "空语句" << std::endl;
@@ -98,20 +100,20 @@ AstNode* Parser::parseDeclaration()
     {
         node->value = currentToken.value;
         //获取声明变量
-        currentToken = tokens[currentTokenIndex++];
+        currentToken = tokens[++currentTokenIndex];
         
         while (currentToken.value != ";")
         {
             //跳过逗号
             if (currentToken.value == ",")
             {
-                currentToken = tokens[currentTokenIndex++];
+                currentToken = tokens[++currentTokenIndex];
             }
 
             AstNode* parm = new AstNode();
             parm->value = currentToken.value;
             node->children.push_back(parm);
-            currentToken = tokens[currentTokenIndex++];
+            currentToken = tokens[++currentTokenIndex];
         }
     }
     return node;
@@ -122,7 +124,7 @@ AstNode* Parser::parseDeclaration()
 //参数列表
 AstNode* Parser::parsePortList()
 {
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
     if (currentToken.value != "(")
     {
         std::cout << "wrong input" << std::endl;
@@ -130,7 +132,7 @@ AstNode* Parser::parsePortList()
     }
     AstNode* node = new AstNode();
     node->value = "parsePortList";
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
     //记得在树节点手动释放内存，该代码没有使用智能指针
     AstNode* childnode = new AstNode();
     childnode->value = currentToken.value;
@@ -148,14 +150,14 @@ AstNode* Parser::parsePortList()
 AstNode* Parser::parsePortListTail()
 {
     //cT=","
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
     //如果不是逗号,退出
     if (currentToken.value != ",")
     {
         return nullptr;
     }
     //ct="参数"
-    currentToken = tokens[currentTokenIndex++];
+    currentToken = tokens[++currentTokenIndex];
 
     AstNode* node = new AstNode();
     node->value = currentToken.value;
