@@ -6,6 +6,7 @@
 class AstNode{
     public:
         std::string value;
+        std::string type;
         std::vector<AstNode*> children;
     public:
         void print(int depth){
