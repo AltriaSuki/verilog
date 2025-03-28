@@ -80,11 +80,13 @@ AstNode* Parser::parseModuleBody()
     if ( currentToken.value == "input"|| currentToken.value == "reg"|| currentToken.value == "output"|| currentToken.value == "integer"|| currentToken.value == "wire")
     {
         node=parseDeclaration();
+        node->type = "declaration";
     }
 
 
     else {
         node=parseStatement();
+        node->type = "statement";
     }
 
     return node;
@@ -136,6 +138,7 @@ AstNode* Parser::parsePortList()
     //记得在树节点手动释放内存，该代码没有使用智能指针
     AstNode* childnode = new AstNode();
     childnode->value = currentToken.value;
+    childnode->type = "port";
     node->children.push_back(childnode);
 
     //调用下一级，参数在子节点并排表示
@@ -161,6 +164,7 @@ AstNode* Parser::parsePortListTail()
 
     AstNode* node = new AstNode();
     node->value = currentToken.value;
+    node->type="port";
     return node;
 
 }

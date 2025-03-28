@@ -4,6 +4,7 @@
 #include<vector>
 #include "Ast.h"
 #include "Lexer.h"
+#pragma once
 class Parser{
 
     private:

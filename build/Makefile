@@ -201,6 +201,30 @@ src/Parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Parser.cpp.s
 .PHONY : src/Parser.cpp.s
 
+src/RTLILGen.o: src/RTLILGen.cpp.o
+.PHONY : src/RTLILGen.o
+
+# target to build an object file
+src/RTLILGen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/RTLILGen.cpp.o
+.PHONY : src/RTLILGen.cpp.o
+
+src/RTLILGen.i: src/RTLILGen.cpp.i
+.PHONY : src/RTLILGen.i
+
+# target to preprocess a source file
+src/RTLILGen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/RTLILGen.cpp.i
+.PHONY : src/RTLILGen.cpp.i
+
+src/RTLILGen.s: src/RTLILGen.cpp.s
+.PHONY : src/RTLILGen.s
+
+# target to generate assembly for a file
+src/RTLILGen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/RTLILGen.cpp.s
+.PHONY : src/RTLILGen.cpp.s
+
 src/Token.o: src/Token.cpp.o
 .PHONY : src/Token.o
 
@@ -291,6 +315,9 @@ help:
 	@echo "... src/Parser.o"
 	@echo "... src/Parser.i"
 	@echo "... src/Parser.s"
+	@echo "... src/RTLILGen.o"
+	@echo "... src/RTLILGen.i"
+	@echo "... src/RTLILGen.s"
 	@echo "... src/Token.o"
 	@echo "... src/Token.i"
 	@echo "... src/Token.s"
