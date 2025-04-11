@@ -110,13 +110,13 @@ void RTLILGen::generateStatement(AstNode* node){
 }
 
 void RTLILGen::generateAssignment(AstNode* node){//只能处理简单的赋值语句，如assign a=b+c;而不支持assign a=b+c+d;
-    std::string op=node->children[1]->value;
-    AstNode* op_node=node->children[1];
-    result+="cell $"+to_operator_string(op)+" (\n";
-    result+=".A("+op_node->children[0]->value+"),\n";
-    result+=".B("+op_node->children[1]->value+"),\n";
-    result+=".Y("+node->children[0]->value+"),\n";
-    result+=");\n";
+    // std::string op=node->children[1]->value;
+    // AstNode* op_node=node->children[1];
+    // result+="cell $"+to_operator_string(op)+" (\n";
+    // result+=".A("+op_node->children[0]->value+"),\n";
+    // result+=".B("+op_node->children[1]->value+"),\n";
+    // result+=".Y("+node->children[0]->value+"),\n";
+    // result+=");\n";
 }
 
 void RTLILGen::generateIfStatement(AstNode* node){
