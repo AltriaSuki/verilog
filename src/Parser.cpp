@@ -190,7 +190,7 @@ AstNode* Parser::parseAssignment() {
         std::cerr << "Error: Expected = in assignment" << std::endl;
         exit(1);
     }
-    AstNode* child2 = parseExpression();
+    AstNode* child2 = parseExpression(0);
     if (child2 != nullptr) {
         node->children.push_back(child2);
     }
@@ -250,62 +250,58 @@ AstNode* Parser::parseInitialStatement() {
 }
 
 
-AstNode* Parser::parseExpression(int level) {
-    Token nextToken;
-    if (currentTokenIndex + 1 < tokens.size()) { nextToken = tokens[currentTokenIndex + 1]; }
-    if (currentToken.type == OPERATOR) {//unary expression
-        return parseUnaryExpression();
-    }
-    else if (currentTokenIndex + 1 < tokens.size() && nextToken.type == OPERATOR && level == 0) {//binary expression
-        return parseBinaryExpression();
-    }
-    else if (currentToken.type == IDENTIFIER) {
-        AstNode* node = new AstNode();
-        node->value = currentToken.value;
-        node->type = "variable";
+AstNode* Parser::parseExpression(int minPrec) {
+    AstNode* lhs = nullptr;
+
+    // 初始：处理数字、变量或一元表达式
+    if (currentToken.type == OPERATOR) {
+        lhs = parseUnaryExpression();  // 如 -a
+    } else if (currentToken.type == IDENTIFIER || currentToken.type == NUMBER) {
+        lhs = new AstNode();
+        lhs->value = currentToken.value;
+        lhs->type = (currentToken.type == IDENTIFIER) ? "variable" : "number";
         currentToken = tokens[++currentTokenIndex];
-        return node;
-    }
-    else if (currentToken.type == NUMBER) {
-        AstNode* node = new AstNode();
-        node->value = currentToken.value;
-        node->type = "number";
-        currentToken = tokens[++currentTokenIndex];
-        return node;
-    }
-    else {
-        std::cerr << "Error: Expected expression" << std::endl;
+    } else {
+        std::cerr << "Unexpected token in expression" << std::endl;
         exit(1);
     }
-    return nullptr;
+
+    // 接下来：处理操作符（可能是 binary）
+    while (currentTokenIndex < tokens.size()
+           && currentToken.type == OPERATOR
+           && precedence[currentToken.value] >= minPrec) {
+
+        std::string op = currentToken.value;
+        int opPrec = precedence[op];
+        bool rightAssoc = isRightAssociative[op];
+        int nextMinPrec = rightAssoc ? opPrec : opPrec + 1;
+
+        currentToken = tokens[++currentTokenIndex]; // consume operator
+
+        AstNode* rhs = parseExpression(nextMinPrec);
+
+        AstNode* newNode = new AstNode();
+        newNode->value = op;
+        newNode->type = "operator";
+        newNode->children.push_back(lhs);
+        newNode->children.push_back(rhs);
+        lhs = newNode;
+    }
+
+    return lhs;
 }
+
 
 AstNode* Parser::parseUnaryExpression() {
     AstNode* node = new AstNode();
     node->value = currentToken.value;
     node->type = "operator";
     currentToken = tokens[++currentTokenIndex];
-    AstNode* child = parseExpression();
+    AstNode* child = parseExpression(0);
     if (child != nullptr) {
         node->children.push_back(child);
     }
     return node;
-}
-
-AstNode* Parser::parseBinaryExpression() {
-    AstNode* node = parseExpression(1);
-    if (currentToken.type == OPERATOR) {
-        AstNode* op = new AstNode();
-        op->value = currentToken.value;
-        op->type = "operator";
-        currentToken = tokens[++currentTokenIndex];
-        AstNode* child2 = parseExpression(1);
-        if (child2 != nullptr) {
-            op->children.push_back(node);
-            op->children.push_back(child2);
-            return op;
-        }
-    }
 }
 AstNode* Parser::parseStatement() {
     if (currentToken.type == KEYWORD) {
@@ -334,7 +330,7 @@ AstNode* Parser::parseIfStatement() {
     currentToken = tokens[++currentTokenIndex];
     if (currentToken.type == BRACKET && currentToken.value == "(") {
         currentToken = tokens[++currentTokenIndex];
-        AstNode* child = parseExpression();
+        AstNode* child = parseExpression(0);
         if (child != nullptr) {
             node->children.push_back(child);
         }

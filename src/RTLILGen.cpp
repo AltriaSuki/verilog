@@ -1,5 +1,7 @@
 #include"RTLILGen.h"
 #include<string>
+#include<set>
+#include<vector>
 #include"helper.h"
 
 
@@ -109,14 +111,35 @@ void RTLILGen::generateStatement(AstNode* node){
     }
 }
 
+int RTLILGen::incre_num(std::string op){
+    if(op=="add"){
+        return ++add_num;
+    }else if(op=="sub"){
+        return ++sub_num;
+    }else if(op=="mul"){
+        return ++mul_num;
+    }else if(op=="div"){
+        return ++div_num;
+    }else if(op=="mod"){
+        return ++mod_num;
+    }else if(op=="and"){
+        return ++and_num;
+    }else if(op=="or"){
+        return ++or_num;
+    }else if(op=="xor"){
+        return ++xor_num;
+    }else if(op=="not"){
+        return ++not_num;
+    }
+    return 0;
+}
+
 void RTLILGen::generateAssignment(AstNode* node){//只能处理简单的赋值语句，如assign a=b+c;而不支持assign a=b+c+d;
-    // std::string op=node->children[1]->value;
-    // AstNode* op_node=node->children[1];
-    // result+="cell $"+to_operator_string(op)+" (\n";
-    // result+=".A("+op_node->children[0]->value+"),\n";
-    // result+=".B("+op_node->children[1]->value+"),\n";
-    // result+=".Y("+node->children[0]->value+"),\n";
-    // result+=");\n";
+    std::string lhs=node->children[0]->value;
+    std::string op=node->children[1]->value;
+    std::vector<AstNode*> op_type;
+    temp_id=0;
+
 }
 
 void RTLILGen::generateIfStatement(AstNode* node){
@@ -129,14 +152,5 @@ void RTLILGen::generateAlwaysStatement(AstNode* node){
 
 }
 void RTLILGen::generateInitialStatement(AstNode* node){
-
-}
-void RTLILGen::generateExpression(AstNode* node){
-
-}
-void RTLILGen::generateBinaryExpression(AstNode* node){
-
-}
-void RTLILGen::generateUnaryExpression(AstNode* node){
 
 }
