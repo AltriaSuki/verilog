@@ -130,19 +130,103 @@ int RTLILGen::incre_num(std::string op){
         return ++xor_num;
     }else if(op=="not"){
         return ++not_num;
+    }else if(op=="eq"){
+        return ++eq_num;
+    }else if(op=="ne"){
+        return ++ne_num;
+    }else if(op=="lt"){
+        return ++lt_num;
+    }else if(op=="le"){
+        return ++le_num;
+    }else if(op=="gt"){
+        return ++gt_num;
+    }else if(op=="ge"){
+        return ++ge_num;
     }
     return 0;
 }
-
-void RTLILGen::generateAssignment(AstNode* node){//只能处理简单的赋值语句，如assign a=b+c;而不支持assign a=b+c+d;
+void RTLILGen::assign_helper(AstNode* node){
+    if(node->children.size()==0){//叶子节点
+        return;
+    }
+    assign_helper(node->children[0]);
+    assign_helper(node->children[1]);
+    
+    result+="cell $"+to_operator_string(node->value)
+    +"$ "+to_operator_string(node->value)+"$"
+    +std::to_string(incre_num(to_operator_string(node->value)))+"\n";
+    if(node->children[0]->type=="variable"){
+        result+="connect \\A \\"+node->children[0]->value+"\n";
+    }else{
+        if(node->children[1]->type!="variable"){
+            result+="connect \\A \\tmp"+std::to_string(temp_id-1)+"\n";
+        }else{
+            result+="connect \\A \\tmp"+std::to_string(temp_id)+"\n";
+        }
+        
+    }
+    if(node->children[1]->type=="variable"){
+        result+="connect \\B \\"+node->children[1]->value+"\n";
+    }else{
+        result+="connect \\B \\tmp"+std::to_string(temp_id)+"\n";
+    }
+    result+="connect \\Y \\"+new_temp()+"\n";
+    result+="end\n";
+}
+void RTLILGen::generateAssignment(AstNode* node){
+    if(node->children[1]->children.size()==0){
+        result+="connect \\"+node->children[0]->value+" \\"+node->children[1]->value+"\n";
+        result+="end\n";
+        return;
+    }
     std::string lhs=node->children[0]->value;
     std::string op=node->children[1]->value;
     std::vector<AstNode*> op_type;
     temp_id=0;
+    
+    assign_helper(node->children[1]);
+    result+="connect \\"+lhs+"\\tmp"+std::to_string(temp_id)+"\n";
+    result+="end\n";
 
 }
+//最多有三个子结点；有两个子结点时，没有else；有三个子结点时，有else
+void RTLILGen::generateIfStatement(AstNode* node){//现在的if语句只支持assign statement
+    int len=node->children.size();
+    if(len<2){
+        std::cerr<<"Error: if statement should have at least 2 children"<<std::endl;
+        exit(1);
+    }else if(len==2){
+        temp_id=0;//重置temp_id,使得每个if语句的临时变量不冲突
+        AstNode* condition=node->children[0];
+        AstNode* statement=node->children[1];
+        if(condition->type=="operator"){
+            result+="cell $"+to_operator_string(condition->value)+"$ "
+            +to_operator_string(condition->value)+"$"+std::to_string(incre_num(to_operator_string(condition->value)))+"\n";
+            result+="connect \\A \\"+condition->children[0]->value+"\n";
+            result+="connect \\B \\"+condition->children[1]->value+"\n";
+            result+="connect \\Y \\cond\n";//这里的id必定是1
+            result+="end\n";
+        }else{
+            result+="connect \\"+condition->value+" \\cond\n";
+            result+="end\n";
+        }
+        if(statement->children[1]->children.size()==0){
+            result+="connect \\"+statement->children[0]->value+" \\"+statement->children[1]->value+"\n";
+            result+="end\n";
+        }else{
+            assign_helper(statement->children[1]);
+        }
+        
 
-void RTLILGen::generateIfStatement(AstNode* node){
+        result+="cell $mux$ mux$"+std::to_string(++mul_num)+"\n";
+        result+="connect \\A \\a\n";
+        result+="connect \\B \\tmp"+std::to_string(temp_id)+"\n";
+        result+="connect \\S \\cond\n";
+        result+="connect \\Y \\a\n";
+        result+="end\n";
+    }else if(len==3){
+
+    }
 
 }
 void RTLILGen::generateElseStatement(AstNode* node){

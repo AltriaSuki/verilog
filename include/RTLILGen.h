@@ -21,8 +21,15 @@ private:
     int xor_num=0;
     int not_num=0;
     int temp_id=0;
+    int eq_num=0;
+    int ne_num=0;
+    int lt_num=0;
+    int le_num=0;
+    int gt_num=0;
+    int ge_num=0;
+    int mux_num=0;
     int incre_num(std::string op);
-    void expression_toRTLIL(AstNode* node);
+    void assign_helper(AstNode* node);
     std::string new_temp(){
         return "tmp"+std::to_string(++temp_id);
     }

@@ -21,5 +21,9 @@ std::string to_operator_string(std::string str){
     else if (str == "|") return "or";
     else if (str == "^") return "xor";
     else if (str == "@") return "at";
+    else if (str == "==")return "eq";
+    else if (str == "!=") return "ne";
+    else if (str == "<=") return "le";
+    else if (str == ">=") return "ge";
     else return str;
 }

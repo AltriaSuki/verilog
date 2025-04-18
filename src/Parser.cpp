@@ -242,10 +242,17 @@ AstNode* Parser::parseInitialStatement() {
     node->value = "initial";
     node->type = "initial";
     currentToken = tokens[++currentTokenIndex];
-    AstNode* child = parseStatement();
-    if (child != nullptr) {
-        node->children.push_back(child);
+    while(currentToken.value!="end"){
+        AstNode * child = parseStatement();
+        if (child != nullptr) {
+            node->children.push_back(child);
+        }
     }
+    currentToken = tokens[++currentTokenIndex];
+    // AstNode* child = parseStatement();
+    // if (child != nullptr) {
+    //     node->children.push_back(child);
+    // }
     return node;
 }
 
