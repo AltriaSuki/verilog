@@ -225,7 +225,11 @@ void RTLILGen::generateIfStatement(AstNode* node){//现在的if语句只支持as
         result+="connect \\Y \\a\n";
         result+="end\n";
     }else if(len==3){
+        if(node->children[2]->value!="if"){//这就表示只有一层else语句
+            temp_id=0;
+        }else{//表示有多层else语句
 
+        }
     }
 
 }
