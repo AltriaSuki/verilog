@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/verilog_compiler.dir/src/Ast.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.o"
   "CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.o.d"
+  "CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o"
+  "CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/Parser.cpp.o"
   "CMakeFiles/verilog_compiler.dir/src/Parser.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/RTLILGen.cpp.o"

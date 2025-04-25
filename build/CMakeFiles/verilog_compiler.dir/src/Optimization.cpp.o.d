@@ -1,7 +1,7 @@
-CMakeFiles/verilog_compiler.dir/src/main.cpp.o: \
- /home/yuki/Coding/Verilog_design/src/main.cpp /usr/include/stdc-predef.h \
- /home/yuki/Coding/Verilog_design/include/Lexer.h \
- /home/yuki/Coding/Verilog_design/include/Token.h \
+CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: \
+ /home/yuki/Coding/Verilog_design/src/Optimization.cpp \
+ /usr/include/stdc-predef.h \
+ /home/yuki/Coding/Verilog_design/include/Optimization.h \
  /usr/include/c++/14/string /usr/include/c++/14/bits/requires_hosted.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h \
@@ -118,15 +118,8 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: \
  /usr/include/c++/14/bits/memory_resource.h /usr/include/c++/14/cstddef \
  /usr/include/c++/14/bits/uses_allocator.h \
  /usr/include/c++/14/bits/uses_allocator_args.h /usr/include/c++/14/tuple \
- /usr/include/c++/14/unordered_set \
- /usr/include/c++/14/bits/unordered_set.h \
- /usr/include/c++/14/bits/hashtable.h \
- /usr/include/c++/14/bits/hashtable_policy.h \
- /usr/include/c++/14/ext/aligned_buffer.h \
- /usr/include/c++/14/bits/enable_special_members.h \
- /usr/include/c++/14/bits/node_handle.h \
- /usr/include/c++/14/bits/erase_if.h \
  /home/yuki/Coding/Verilog_design/include/Parser.h \
+ /home/yuki/Coding/Verilog_design/include/Token.h \
  /usr/include/c++/14/iostream /usr/include/c++/14/ostream \
  /usr/include/c++/14/ios /usr/include/c++/14/exception \
  /usr/include/c++/14/bits/exception_ptr.h \
@@ -169,7 +162,15 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: \
  /usr/include/c++/14/bits/stl_bvector.h \
  /usr/include/c++/14/bits/vector.tcc /usr/include/c++/14/unordered_map \
  /usr/include/c++/14/bits/unordered_map.h \
+ /usr/include/c++/14/bits/hashtable.h \
+ /usr/include/c++/14/bits/hashtable_policy.h \
+ /usr/include/c++/14/ext/aligned_buffer.h \
+ /usr/include/c++/14/bits/enable_special_members.h \
+ /usr/include/c++/14/bits/node_handle.h \
+ /usr/include/c++/14/bits/erase_if.h \
  /home/yuki/Coding/Verilog_design/include/Ast.h \
- /home/yuki/Coding/Verilog_design/include/RTLILGen.h \
- /home/yuki/Coding/Verilog_design/include/Optimization.h \
- /home/yuki/Coding/Verilog_design/include/helper.h
+ /home/yuki/Coding/Verilog_design/include/Lexer.h \
+ /usr/include/c++/14/unordered_set \
+ /usr/include/c++/14/bits/unordered_set.h \
+ /home/yuki/Coding/Verilog_design/include/helper.h \
+ /home/yuki/Coding/Verilog_design/include/RTLILGen.h

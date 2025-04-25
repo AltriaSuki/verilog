@@ -177,6 +177,30 @@ src/Lexer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.s
 .PHONY : src/Lexer.cpp.s
 
+src/Optimization.o: src/Optimization.cpp.o
+.PHONY : src/Optimization.o
+
+# target to build an object file
+src/Optimization.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o
+.PHONY : src/Optimization.cpp.o
+
+src/Optimization.i: src/Optimization.cpp.i
+.PHONY : src/Optimization.i
+
+# target to preprocess a source file
+src/Optimization.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.i
+.PHONY : src/Optimization.cpp.i
+
+src/Optimization.s: src/Optimization.cpp.s
+.PHONY : src/Optimization.s
+
+# target to generate assembly for a file
+src/Optimization.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.s
+.PHONY : src/Optimization.cpp.s
+
 src/Parser.o: src/Parser.cpp.o
 .PHONY : src/Parser.o
 
@@ -312,6 +336,9 @@ help:
 	@echo "... src/Lexer.o"
 	@echo "... src/Lexer.i"
 	@echo "... src/Lexer.s"
+	@echo "... src/Optimization.o"
+	@echo "... src/Optimization.i"
+	@echo "... src/Optimization.s"
 	@echo "... src/Parser.o"
 	@echo "... src/Parser.i"
 	@echo "... src/Parser.s"
