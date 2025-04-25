@@ -157,8 +157,10 @@ void RTLILGen::assign_helper(AstNode* node){
     +std::to_string(incre_num(to_operator_string(node->value)))+"\n";
     if(node->children[0]->type=="variable"){
         result+="connect \\A \\"+node->children[0]->value+"\n";
+    }else if(node->children[0]->type=="number"){
+        result+="connect \\A \\"+node->children[0]->value+"\n";
     }else{
-        if(node->children[1]->type!="variable"){
+        if(node->children[1]->type=="operator"){
             result+="connect \\A \\tmp"+std::to_string(temp_id-1)+"\n";
         }else{
             result+="connect \\A \\tmp"+std::to_string(temp_id)+"\n";
@@ -167,7 +169,10 @@ void RTLILGen::assign_helper(AstNode* node){
     }
     if(node->children[1]->type=="variable"){
         result+="connect \\B \\"+node->children[1]->value+"\n";
-    }else{
+    }else if (node->children[1]->type=="number")
+    {
+        result+="connect \\B \\"+node->children[1]->value+"\n";
+    }else {
         result+="connect \\B \\tmp"+std::to_string(temp_id)+"\n";
     }
     result+="connect \\Y \\"+new_temp()+"\n";
@@ -211,7 +216,7 @@ void RTLILGen::generateIfStatement(AstNode* node){//现在的if语句只支持as
             result+="end\n";
         }
         if(statement->children[1]->children.size()==0){
-            result+="connect \\"+statement->children[0]->value+" \\"+statement->children[1]->value+"\n";
+            result+="connect \\"+new_temp()+" \\"+statement->children[1]->value+"\n";
             result+="end\n";
         }else{
             assign_helper(statement->children[1]);
@@ -227,8 +232,44 @@ void RTLILGen::generateIfStatement(AstNode* node){//现在的if语句只支持as
     }else if(len==3){
         if(node->children[2]->value!="if"){//这就表示只有一层else语句
             temp_id=0;
-        }else{//表示有多层else语句
+            AstNode* condition=node->children[0];
+            AstNode* statement=node->children[1];
+            AstNode* else_statement=node->children[2];
+            if(condition->type=="operator"){
+                result+="cell $"+to_operator_string(condition->value)+"$ "
+                +to_operator_string(condition->value)+"$"+std::to_string(incre_num(to_operator_string(condition->value)))+"\n";
+                result+="connect \\A \\"+condition->children[0]->value+"\n";
+                result+="connect \\B \\"+condition->children[1]->value+"\n";
+                result+="connect \\Y \\cond\n";//这里的id必定是1
+                result+="end\n";
+            }else{
+                result+="connect \\"+condition->value+" \\cond\n";
+                result+="end\n";
+            }
 
+            if(statement->children[1]->children.size()==0){
+                result+="connect \\"+new_temp()+" \\"+statement->children[1]->value+"\n";
+                result+="end\n";
+            }else{
+                assign_helper(statement->children[1]);
+            }
+
+            if(else_statement->children[1]->children.size()==0){
+                result+="connect \\"+new_temp()+" \\"+else_statement->children[1]->value+"\n";
+                result+="end\n";
+            }else{
+                assign_helper(else_statement->children[1]);
+            }
+
+            result+="cell $mux$ mux$"+std::to_string(++mul_num)+"\n";
+            result+="connect \\A \\tmp"+std::to_string(temp_id)+"\n";
+            result+="connect \\B \\tmp"+std::to_string(temp_id-1)+"\n";
+            result+="connect \\S \\cond\n";
+            result+="connect \\Y \\a\n";
+            result+="end\n";
+
+        }else{//表示有多层else语句;递归调用
+            
         }
     }
 
