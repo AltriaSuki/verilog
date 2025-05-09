@@ -172,4 +172,8 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: \
  /home/yuki/Coding/Verilog_design/include/Ast.h \
  /home/yuki/Coding/Verilog_design/include/RTLILGen.h \
  /home/yuki/Coding/Verilog_design/include/Optimization.h \
- /home/yuki/Coding/Verilog_design/include/helper.h
+ /usr/include/c++/14/map /usr/include/c++/14/bits/stl_tree.h \
+ /usr/include/c++/14/bits/stl_map.h \
+ /usr/include/c++/14/bits/stl_multimap.h \
+ /home/yuki/Coding/Verilog_design/include/helper.h \
+ /usr/include/c++/14/sstream /usr/include/c++/14/bits/sstream.tcc

@@ -207,7 +207,7 @@ CMakeFiles/verilog_compiler.dir/src/Lexer.cpp.o: /home/yuki/Coding/Verilog_desig
 CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilog_design/src/Optimization.cpp \
   /usr/include/stdc-predef.h \
   /home/yuki/Coding/Verilog_design/include/Optimization.h \
-  /usr/include/c++/14/string \
+  /usr/include/c++/14/map \
   /usr/include/c++/14/bits/requires_hosted.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/c++config.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h \
@@ -221,8 +221,55 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/cpu_defines.h \
   /usr/include/c++/14/pstl/pstl_config.h \
-  /usr/include/c++/14/bits/stringfwd.h \
+  /usr/include/c++/14/bits/stl_tree.h \
+  /usr/include/c++/14/bits/stl_algobase.h \
+  /usr/include/c++/14/bits/functexcept.h \
+  /usr/include/c++/14/bits/exception_defines.h \
+  /usr/include/c++/14/bits/cpp_type_traits.h \
+  /usr/include/c++/14/ext/type_traits.h \
+  /usr/include/c++/14/ext/numeric_traits.h \
+  /usr/include/c++/14/bits/stl_pair.h \
+  /usr/include/c++/14/type_traits \
+  /usr/include/c++/14/bits/version.h \
+  /usr/include/c++/14/bits/move.h \
+  /usr/include/c++/14/bits/utility.h \
+  /usr/include/c++/14/bits/stl_iterator_base_types.h \
+  /usr/include/c++/14/bits/stl_iterator_base_funcs.h \
+  /usr/include/c++/14/bits/concept_check.h \
+  /usr/include/c++/14/debug/assertions.h \
+  /usr/include/c++/14/bits/stl_iterator.h \
+  /usr/include/c++/14/bits/ptr_traits.h \
+  /usr/include/c++/14/debug/debug.h \
+  /usr/include/c++/14/bits/predefined_ops.h \
+  /usr/include/c++/14/bit \
+  /usr/include/c++/14/concepts \
+  /usr/include/c++/14/bits/allocator.h \
+  /usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h \
+  /usr/include/c++/14/bits/new_allocator.h \
+  /usr/include/c++/14/new \
+  /usr/include/c++/14/bits/exception.h \
   /usr/include/c++/14/bits/memoryfwd.h \
+  /usr/include/c++/14/bits/stl_function.h \
+  /usr/include/c++/14/backward/binders.h \
+  /usr/include/c++/14/ext/alloc_traits.h \
+  /usr/include/c++/14/bits/alloc_traits.h \
+  /usr/include/c++/14/bits/stl_construct.h \
+  /usr/include/c++/14/ext/aligned_buffer.h \
+  /usr/include/c++/14/bits/node_handle.h \
+  /usr/include/c++/14/bits/stl_map.h \
+  /usr/include/c++/14/initializer_list \
+  /usr/include/c++/14/tuple \
+  /usr/include/c++/14/bits/uses_allocator.h \
+  /usr/include/c++/14/bits/invoke.h \
+  /usr/include/c++/14/bits/stl_multimap.h \
+  /usr/include/c++/14/bits/range_access.h \
+  /usr/include/c++/14/bits/erase_if.h \
+  /usr/include/c++/14/bits/memory_resource.h \
+  /usr/include/c++/14/cstddef \
+  /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h \
+  /usr/include/c++/14/bits/uses_allocator_args.h \
+  /usr/include/c++/14/string \
+  /usr/include/c++/14/bits/stringfwd.h \
   /usr/include/c++/14/bits/char_traits.h \
   /usr/include/c++/14/bits/postypes.h \
   /usr/include/c++/14/cwchar \
@@ -230,7 +277,6 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
@@ -240,17 +286,6 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
-  /usr/include/c++/14/type_traits \
-  /usr/include/c++/14/bits/version.h \
-  /usr/include/c++/14/bits/allocator.h \
-  /usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h \
-  /usr/include/c++/14/bits/new_allocator.h \
-  /usr/include/c++/14/new \
-  /usr/include/c++/14/bits/exception.h \
-  /usr/include/c++/14/bits/functexcept.h \
-  /usr/include/c++/14/bits/exception_defines.h \
-  /usr/include/c++/14/bits/move.h \
-  /usr/include/c++/14/bits/cpp_type_traits.h \
   /usr/include/c++/14/bits/localefwd.h \
   /usr/include/x86_64-linux-gnu/c++/14/bits/c++locale.h \
   /usr/include/c++/14/clocale \
@@ -266,31 +301,8 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
   /usr/include/c++/14/bits/ostream_insert.h \
   /usr/include/c++/14/bits/cxxabi_forced.h \
-  /usr/include/c++/14/bits/stl_iterator_base_funcs.h \
-  /usr/include/c++/14/bits/concept_check.h \
-  /usr/include/c++/14/debug/assertions.h \
-  /usr/include/c++/14/bits/stl_iterator_base_types.h \
-  /usr/include/c++/14/bits/stl_iterator.h \
-  /usr/include/c++/14/ext/type_traits.h \
-  /usr/include/c++/14/bits/ptr_traits.h \
-  /usr/include/c++/14/bits/stl_function.h \
-  /usr/include/c++/14/backward/binders.h \
-  /usr/include/c++/14/ext/numeric_traits.h \
-  /usr/include/c++/14/bits/stl_algobase.h \
-  /usr/include/c++/14/bits/stl_pair.h \
-  /usr/include/c++/14/bits/utility.h \
-  /usr/include/c++/14/debug/debug.h \
-  /usr/include/c++/14/bits/predefined_ops.h \
-  /usr/include/c++/14/bit \
-  /usr/include/c++/14/concepts \
   /usr/include/c++/14/bits/refwrap.h \
-  /usr/include/c++/14/bits/invoke.h \
-  /usr/include/c++/14/bits/range_access.h \
-  /usr/include/c++/14/initializer_list \
   /usr/include/c++/14/bits/basic_string.h \
-  /usr/include/c++/14/ext/alloc_traits.h \
-  /usr/include/c++/14/bits/alloc_traits.h \
-  /usr/include/c++/14/bits/stl_construct.h \
   /usr/include/c++/14/string_view \
   /usr/include/c++/14/bits/functional_hash.h \
   /usr/include/c++/14/bits/hash_bytes.h \
@@ -341,11 +353,6 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
   /usr/include/c++/14/bits/charconv.h \
   /usr/include/c++/14/bits/basic_string.tcc \
-  /usr/include/c++/14/bits/memory_resource.h \
-  /usr/include/c++/14/cstddef \
-  /usr/include/c++/14/bits/uses_allocator.h \
-  /usr/include/c++/14/bits/uses_allocator_args.h \
-  /usr/include/c++/14/tuple \
   /home/yuki/Coding/Verilog_design/include/Parser.h \
   /home/yuki/Coding/Verilog_design/include/Token.h \
   /usr/include/c++/14/iostream \
@@ -404,16 +411,15 @@ CMakeFiles/verilog_compiler.dir/src/Optimization.cpp.o: /home/yuki/Coding/Verilo
   /usr/include/c++/14/bits/unordered_map.h \
   /usr/include/c++/14/bits/hashtable.h \
   /usr/include/c++/14/bits/hashtable_policy.h \
-  /usr/include/c++/14/ext/aligned_buffer.h \
   /usr/include/c++/14/bits/enable_special_members.h \
-  /usr/include/c++/14/bits/node_handle.h \
-  /usr/include/c++/14/bits/erase_if.h \
   /home/yuki/Coding/Verilog_design/include/Ast.h \
   /home/yuki/Coding/Verilog_design/include/Lexer.h \
   /usr/include/c++/14/unordered_set \
   /usr/include/c++/14/bits/unordered_set.h \
   /home/yuki/Coding/Verilog_design/include/helper.h \
-  /home/yuki/Coding/Verilog_design/include/RTLILGen.h
+  /home/yuki/Coding/Verilog_design/include/RTLILGen.h \
+  /usr/include/c++/14/sstream \
+  /usr/include/c++/14/bits/sstream.tcc
 
 CMakeFiles/verilog_compiler.dir/src/Parser.cpp.o: /home/yuki/Coding/Verilog_design/src/Parser.cpp \
   /usr/include/stdc-predef.h \
@@ -831,10 +837,6 @@ CMakeFiles/verilog_compiler.dir/src/RTLILGen.cpp.o: /home/yuki/Coding/Verilog_de
   /home/yuki/Coding/Verilog_design/include/Lexer.h \
   /usr/include/c++/14/unordered_set \
   /usr/include/c++/14/bits/unordered_set.h \
-  /usr/include/c++/14/set \
-  /usr/include/c++/14/bits/stl_tree.h \
-  /usr/include/c++/14/bits/stl_set.h \
-  /usr/include/c++/14/bits/stl_multiset.h \
   /home/yuki/Coding/Verilog_design/include/helper.h
 
 CMakeFiles/verilog_compiler.dir/src/Token.cpp.o: /home/yuki/Coding/Verilog_design/src/Token.cpp \
@@ -1379,20 +1381,24 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: /home/yuki/Coding/Verilog_design
   /home/yuki/Coding/Verilog_design/include/Ast.h \
   /home/yuki/Coding/Verilog_design/include/RTLILGen.h \
   /home/yuki/Coding/Verilog_design/include/Optimization.h \
-  /home/yuki/Coding/Verilog_design/include/helper.h
+  /usr/include/c++/14/map \
+  /usr/include/c++/14/bits/stl_tree.h \
+  /usr/include/c++/14/bits/stl_map.h \
+  /usr/include/c++/14/bits/stl_multimap.h \
+  /home/yuki/Coding/Verilog_design/include/helper.h \
+  /usr/include/c++/14/sstream \
+  /usr/include/c++/14/bits/sstream.tcc
 
 
 /home/yuki/Coding/Verilog_design/src/main.cpp:
 
 /home/yuki/Coding/Verilog_design/src/Token.cpp:
 
-/usr/include/c++/14/bits/stl_multiset.h:
-
-/usr/include/c++/14/set:
-
 /home/yuki/Coding/Verilog_design/src/RTLILGen.cpp:
 
 /home/yuki/Coding/Verilog_design/src/Parser.cpp:
+
+/usr/include/c++/14/bits/sstream.tcc:
 
 /usr/include/c++/14/bits/unordered_map.h:
 
@@ -1403,6 +1409,10 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: /home/yuki/Coding/Verilog_design
 /usr/include/c++/14/bits/stl_uninitialized.h:
 
 /home/yuki/Coding/Verilog_design/include/Parser.h:
+
+/usr/include/c++/14/bits/stl_multimap.h:
+
+/usr/include/c++/14/map:
 
 /home/yuki/Coding/Verilog_design/src/Optimization.cpp:
 
@@ -1441,6 +1451,8 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: /home/yuki/Coding/Verilog_design
 /usr/include/c++/14/debug/debug.h:
 
 /usr/include/c++/14/bits/stl_pair.h:
+
+/usr/include/c++/14/sstream:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
 
@@ -1610,8 +1622,6 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: /home/yuki/Coding/Verilog_design
 
 /usr/include/c++/14/bits/stl_algobase.h:
 
-/usr/include/c++/14/bits/stl_set.h:
-
 /home/yuki/Coding/Verilog_design/include/Token.h:
 
 /usr/include/c++/14/new:
@@ -1691,6 +1701,8 @@ CMakeFiles/verilog_compiler.dir/src/main.cpp.o: /home/yuki/Coding/Verilog_design
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
+
+/usr/include/c++/14/bits/stl_map.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
