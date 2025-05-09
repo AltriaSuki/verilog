@@ -35,6 +35,7 @@ private:
     int gt_num = 0;
     int ge_num = 0;
     int mux_num = 0;
+    int tmp_cicle=0;
     int incre_num(std::string op);
     void assign_helper(AstNode* node);
     std::string new_temp() {

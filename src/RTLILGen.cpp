@@ -185,10 +185,10 @@ void RTLILGen::assign_helper(AstNode* node) {
     }
     else {
         if (node->children[1]->type != "variable") {
-            result += "connect \\A \\tmp" + std::to_string(temp_id - 1) + "\n";
+            result += "connect \\A \\tmp" + std::to_string(temp_id - 1) +"_"+std::to_string(tmp_cicle)+ "\n";
         }
         else {
-            result += "connect \\A \\tmp" + std::to_string(temp_id) + "\n";
+            result += "connect \\A \\tmp" + std::to_string(temp_id)+"_"+std::to_string(tmp_cicle) + "\n";
         }
 
     }
@@ -196,9 +196,9 @@ void RTLILGen::assign_helper(AstNode* node) {
         result += "connect \\B \\" + node->children[1]->value + "\n";
     }
     else {
-        result += "connect \\B \\tmp" + std::to_string(temp_id) + "\n";
+        result += "connect \\B \\tmp_"+std::to_string(tmp_cicle)+ std::to_string(temp_id) +"_"+std::to_string(tmp_cicle)+ "\n";
     }
-    result += "connect \\Y \\" + new_temp() + "\n";
+    result += "connect \\Y \\" + new_temp() +"_"+std::to_string(tmp_cicle)+ "\n";
     result += "end\n";
 }
 
@@ -213,9 +213,10 @@ void RTLILGen::generateAssignment(AstNode* node) {
     std::string op = node->children[1]->value;
     std::vector<AstNode*> op_type;
     temp_id = 0;
+    tmp_cicle++;//每一次出现temp——id时都要加一
 
     assign_helper(node->children[1]);
-    result += "connect \\" + lhs + " \\tmp" + std::to_string(temp_id) + "\n";
+    result += "connect \\" + lhs + " \\tmp" + std::to_string(temp_id) +"_"+std::to_string(tmp_cicle)+ "\n";
     /*result += "end\n";*/
 
 }
@@ -230,6 +231,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
     }
     else if (len == 2) {
         temp_id = 0;//重置temp_id,使得每个if语句的临时变量不冲突
+        tmp_cicle++;
         AstNode* condition = node->children[0];
         AstNode* statement = node->children[1];
         if (condition->type == "operator") {
@@ -245,7 +247,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
            
         }
         if (statement->children[1]->children.size() == 0) {
-            result += "connect \\" + new_temp() + " \\" + statement->children[1]->value + "\n";
+            result += "connect \\" + new_temp() +"_"+std::to_string(tmp_cicle)+ " \\" + statement->children[1]->value + "\n";
             
         }
         else {
@@ -255,7 +257,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
 
         result += "cell $mux$ mux$" + std::to_string(++mul_num) + "\n";
         result += "connect \\A \\a\n";
-        result += "connect \\B \\tmp" + std::to_string(temp_id) + "\n";
+        result += "connect \\B \\tmp" + std::to_string(temp_id) +"_"+std::to_string(tmp_cicle)+ "\n";
         result += "connect \\S \\cond\n";
         result += "connect \\Y \\" + statement->children[0]->value + "\n";
         result += "end\n";
@@ -263,6 +265,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
     else if (len == 3) {
         if (node->children[2]->value != "if") {//这就表示只有一层else语句
             temp_id = 0;
+            tmp_cicle++;
             AstNode* condition = node->children[0];
             AstNode* statement = node->children[1];
             AstNode* else_statement = node->children[2];
@@ -281,7 +284,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
             }
 
             if (statement->children[1]->children.size() == 0) {
-                result += "connect \\" + new_temp() + " \\" + statement->children[1]->value + "\n";
+                result += "connect \\" + new_temp() +"_"+std::to_string(tmp_cicle)+ " \\" + statement->children[1]->value + "\n";
               
             }
             else {
@@ -289,7 +292,7 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
             }
 
             if (else_statement->children[1]->children.size() == 0) {
-                result += "connect \\" + new_temp() + " \\" + else_statement->children[1]->value + "\n";
+                result += "connect \\" + new_temp() +"_"+std::to_string(tmp_cicle)+ " \\" + else_statement->children[1]->value + "\n";
                
             }
             else {
@@ -297,8 +300,8 @@ void RTLILGen::generateIfStatement(AstNode* node) {//现在的if语句只支持a
             }
 
             result += "cell $mux$ mux$" + std::to_string(++mul_num) + "\n";
-            result += "connect \\A \\tmp" + std::to_string(temp_id) + "\n";
-            result += "connect \\B \\tmp" + std::to_string(temp_id - 1) + "\n";
+            result += "connect \\A \\tmp_"+std::to_string(tmp_cicle) + std::to_string(temp_id) + "\n";
+            result += "connect \\B \\tmp_"+std::to_string(tmp_cicle) + std::to_string(temp_id - 1) + "\n";
             result += "connect \\S \\cond\n";
             result += "connect \\Y \\"+ statement->children[0]->value+"\n";
             result += "end\n";

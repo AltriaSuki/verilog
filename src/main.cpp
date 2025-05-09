@@ -13,6 +13,7 @@ int main(){
     std::string result=rtlil.generateRTLIL();
     opt.set_rtlil_code(result);
     opt.optimize_in_rtlil();
+    result=opt.get_optimized_rtlil();
     std::cout<<result<<std::endl;
     return 0;
 }

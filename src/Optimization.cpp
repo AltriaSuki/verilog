@@ -79,6 +79,7 @@ void Optimization::divide_into_blocks(){
             //将block中的信息提取出来
             //并存储到blocks中
             in_cell=false;
+            block+=line+"\n";
             info block_info;
             block_info.in_cell=true;
             std::string _line;
@@ -160,7 +161,7 @@ void Optimization::divide_into_blocks(){
 }
 
 void Optimization::common_subexpression_elimination(){
-    for(int i=0;i<whole_blocks.size();i++){
+    for(size_t i=0;i<whole_blocks.size();i++){
         if(!whole_blocks[i]->is_opration)continue;
         for(int j=i+1;j<whole_blocks.size();j++){
             if(!whole_blocks[j]->is_opration)continue;
@@ -169,10 +170,19 @@ void Optimization::common_subexpression_elimination(){
             if(whole_blocks[i]->block_info.B==whole_blocks[j]->block_info.Y)
                 break;//表明b的值已经改变了
             //下面是对cell的操作
+            //不对if语句进行优化
             if(whole_blocks[i]->block_info.cell_type==whole_blocks[j]->block_info.cell_type){
                 if(whole_blocks[i]->block_info.A==whole_blocks[j]->block_info.A&&
                    whole_blocks[i]->block_info.B==whole_blocks[j]->block_info.B){
-                    
+                    std::string Y1=whole_blocks[i]->block_info.Y;
+                    std::string Y2=whole_blocks[j]->block_info.Y;
+                    std::string block="connect "+Y2+" "+Y1+"\n";
+                    whole_blocks[j]->whole_info=block;
+                    whole_blocks[j]->block_info.in_cell=false;
+                    whole_blocks[j]->block_info.cell_name="connect";
+                    whole_blocks[j]->block_info.cell_type="connect";
+                    whole_blocks[j]->block_info.input=Y1;
+                    whole_blocks[j]->block_info.output=Y2;
                    }
             }
         }
@@ -181,4 +191,13 @@ void Optimization::common_subexpression_elimination(){
 
 void Optimization::optimize_in_rtlil(){
     common_subexpression_elimination();
+}
+
+std::string Optimization::get_optimized_rtlil(){
+    std::string result;
+    for(auto block:whole_blocks){
+        result+=block->whole_info;
+    }
+    __cplusplus;
+    return result;
 }
