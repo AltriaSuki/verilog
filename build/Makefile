@@ -321,6 +321,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/rtlil_to_dot.o: src/rtlil_to_dot.cpp.o
+.PHONY : src/rtlil_to_dot.o
+
+# target to build an object file
+src/rtlil_to_dot.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/rtlil_to_dot.cpp.o
+.PHONY : src/rtlil_to_dot.cpp.o
+
+src/rtlil_to_dot.i: src/rtlil_to_dot.cpp.i
+.PHONY : src/rtlil_to_dot.i
+
+# target to preprocess a source file
+src/rtlil_to_dot.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/rtlil_to_dot.cpp.i
+.PHONY : src/rtlil_to_dot.cpp.i
+
+src/rtlil_to_dot.s: src/rtlil_to_dot.cpp.s
+.PHONY : src/rtlil_to_dot.s
+
+# target to generate assembly for a file
+src/rtlil_to_dot.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/verilog_compiler.dir/build.make CMakeFiles/verilog_compiler.dir/src/rtlil_to_dot.cpp.s
+.PHONY : src/rtlil_to_dot.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -354,6 +378,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/rtlil_to_dot.o"
+	@echo "... src/rtlil_to_dot.i"
+	@echo "... src/rtlil_to_dot.s"
 .PHONY : help
 
 

@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/yuki/Coding/Verilog_design/include
 
-CXX_FLAGS = -g -g -Wall -std=gnu++17
+CXX_FLAGS = -g -g -Wall -std=c++20
 

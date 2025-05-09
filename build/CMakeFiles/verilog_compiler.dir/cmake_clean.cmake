@@ -15,6 +15,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/verilog_compiler.dir/src/helper.cpp.o.d"
   "CMakeFiles/verilog_compiler.dir/src/main.cpp.o"
   "CMakeFiles/verilog_compiler.dir/src/main.cpp.o.d"
+  "CMakeFiles/verilog_compiler.dir/src/rtlil_to_dot.cpp.o"
+  "CMakeFiles/verilog_compiler.dir/src/rtlil_to_dot.cpp.o.d"
   "verilog_compiler"
   "verilog_compiler.pdb"
 )
