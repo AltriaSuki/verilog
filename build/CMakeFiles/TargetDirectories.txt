@@ -1,3 +1,0 @@
-/home/yuki/Coding/Verilog_design/build/CMakeFiles/verilog_compiler.dir
-/home/yuki/Coding/Verilog_design/build/CMakeFiles/edit_cache.dir
-/home/yuki/Coding/Verilog_design/build/CMakeFiles/rebuild_cache.dir
