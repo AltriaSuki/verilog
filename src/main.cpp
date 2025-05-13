@@ -2,6 +2,7 @@
 #include"Parser.h"
 #include"RTLILGen.h"
 #include"Optimization.h"
+#include"rtlil_to_dot.h"
 int main(){
     Lexer lexer("module test(a,b,c) wire e; assign a=b*c+d;assign e=b*c+f; endmodule");
     Parser parser(lexer);

@@ -198,6 +198,5 @@ std::string Optimization::get_optimized_rtlil(){
     for(auto block:whole_blocks){
         result+=block->whole_info;
     }
-    __cplusplus;
     return result;
 }
