@@ -182,6 +182,8 @@ void RTLILGen::assign_helper(AstNode* node) {
         + std::to_string(incre_num(to_operator_string(node->value))) + "\n";
     if (node->children[0]->type == "variable") {
         result += "connect \\A \\" + node->children[0]->value + "\n";
+    }else if(node->children[0]->type=="number"){
+        result+="connect \\A \\"+node->children[0]->value+"\n";
     }
     else {
         if (node->children[1]->type != "variable") {
@@ -194,6 +196,9 @@ void RTLILGen::assign_helper(AstNode* node) {
     }
     if (node->children[1]->type == "variable") {
         result += "connect \\B \\" + node->children[1]->value + "\n";
+    }else if (node->children[1]->type=="number")
+    {
+        result+="connect \\B \\"+node->children[1]->value+"\n";
     }
     else {
         result += "connect \\B \\tmp_"+std::to_string(tmp_cicle)+ std::to_string(temp_id) +"_"+std::to_string(tmp_cicle)+ "\n";
