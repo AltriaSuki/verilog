@@ -27,3 +27,9 @@ std::string to_operator_string(std::string str){
     else if (str == ">=") return "ge";
     else return str;
 }
+
+void remove_suffix(std::string& str, const std::string& suffix){
+    if (str.length() >= suffix.length() && str.compare(str.length() -suffix.length(), suffix.length(),suffix)==0){
+        str.erase(str.length() - suffix.length());
+    }
+}
