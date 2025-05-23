@@ -196,13 +196,12 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
             break;
         }
     }
-    //lambda+1表示dummy节点的开工时间
-    alap(lambda+1);
+    alap(lambda);
     for(auto& n:nodes){
         n->range[n->start_time_in_asap]=n->start_time_in_alap+n->delay;
     }
     file<<"Min"<<std::endl;
-    for(int i=1;i<=lambda+1;++i){
+    for(int i=1;i<=lambda;++i){
         if(i==1){
             file<<"XD"+std::to_string(i)<<" ";
             variables_collection.insert("XD"+std::to_string(i));
@@ -210,7 +209,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
             file<<std::to_string(i)<<"XD"+std::to_string(i)<<" ";
             variables_collection.insert("XD"+std::to_string(i));
         }
-        if(i!=lambda+1){
+        if(i!=lambda){
             file<<"+ ";
         }
     }
@@ -231,7 +230,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
     //顺序约束
     file<<"顺序约束:"<<std::endl;
     for(auto& n:nodes){
-        for(auto& succ:n->successors){
+        for(auto& pre:n->predecessors){
             for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
                 if(i==1){
                     file<<"X"+n->name+std::to_string(i)<<" ";
@@ -244,12 +243,12 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
                     file<<"+ ";
                 }
             }
-            for(int i=succ->start_time_in_asap;i<=succ->start_time_in_alap;++i){
+            for(int i=pre->start_time_in_asap;i<=pre->start_time_in_alap;++i){
                 file<<"- ";
-                file<<std::to_string(i)+"X"+succ->name+std::to_string(i)<<" ";
-                variables_collection.insert("X"+succ->name+std::to_string(i));
+                file<<std::to_string(i)+"X"+pre->name+std::to_string(i)<<" ";
+                variables_collection.insert("X"+pre->name+std::to_string(i));
             }
-            file<<"<= 1"<<std::endl;
+            file<<">= 1"<<std::endl;
         }
     }
     //资源约束
