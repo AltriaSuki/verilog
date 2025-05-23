@@ -20,12 +20,12 @@ int main(){
     // std::cout<<result<<std::endl;
     ILP ilp;
     std::string filename="./input/sample.blif";
-    ilp.set_delay_map({{"AND",1},{"OR",2},{"NOT",1}});
+    ilp.set_delay_map({{"AND",1},{"OR",1},{"NOT",1}});
     ilp.read_blif(filename);
     std::map<std::string,int> constraints;
     constraints["AND"]=2;
-    constraints["OR"]=2;
-    constraints["NOT"]=1;
+    constraints["OR"]=1;
+    constraints["NOT"]=2;
     ilp.make_constraints(constraints);
     return 0;
 }

@@ -205,8 +205,10 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
     for(int i=1;i<=lambda+1;++i){
         if(i==1){
             file<<"XD"+std::to_string(i)<<" ";
+            variables_collection.insert("XD"+std::to_string(i));
         }else{
             file<<std::to_string(i)<<"XD"+std::to_string(i)<<" ";
+            variables_collection.insert("XD"+std::to_string(i));
         }
         if(i!=lambda+1){
             file<<"+ ";
@@ -219,6 +221,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
     for(auto& n:nodes){
         for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
             file<<"X"<<n->name<<std::to_string(i)<<" ";
+            variables_collection.insert("X"+n->name+std::to_string(i));
             if(i!=n->start_time_in_alap){
                 file<<"+ ";
             }
@@ -232,8 +235,10 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
             for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
                 if(i==1){
                     file<<"X"+n->name+std::to_string(i)<<" ";
+                    variables_collection.insert("X"+n->name+std::to_string(i));
                 }else{
                     file<<std::to_string(i)+"X"+n->name+std::to_string(i)<<" ";
+                    variables_collection.insert("X"+n->name+std::to_string(i));
                 }
                 if(i!=n->start_time_in_alap){
                     file<<"+ ";
@@ -242,8 +247,9 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
             for(int i=succ->start_time_in_asap;i<=succ->start_time_in_alap;++i){
                 file<<"- ";
                 file<<std::to_string(i)+"X"+succ->name+std::to_string(i)<<" ";
+                variables_collection.insert("X"+succ->name+std::to_string(i));
             }
-            file<<"<= 0"<<std::endl;
+            file<<"<= 1"<<std::endl;
         }
     }
     //资源约束
@@ -262,6 +268,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
                     if(n->type==resource.first){
                         if(j>=n->start_time_in_asap&&j<=n->start_time_in_alap){
                             result+="X"+n->name+std::to_string(j)+" + ";
+                            variables_collection.insert("X"+n->name+std::to_string(j));
                             has_exec=true;
                         }
                     }
@@ -276,4 +283,9 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
             file<<result<<std::endl;
         }
     }
+    file<<"binary"<<std::endl;
+    for(auto& n:variables_collection){
+        file<<n<<std::endl;
+    }
+    file<<"end"<<std::endl;
 }
