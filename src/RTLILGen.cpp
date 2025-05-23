@@ -210,8 +210,15 @@ void RTLILGen::assign_helper(AstNode* node) {
 
 void RTLILGen::generateAssignment(AstNode* node) {
     if (node->children[1]->children.size() == 0) {
+        if(node->children[1]->value[0]=='~'){
+            result += "cell $not$ not$" + std::to_string(++not_num) + "\n";
+            result += "connect \\A \\" + node->children[1]->value.substr(1) + "\n";
+            result += "connect \\Y \\" + node->children[0]->value + "\n";
+            result += "end\n";
+            return;
+        }
         result += "connect \\" + node->children[0]->value + " \\" + node->children[1]->value + "\n";
-        result += "end\n";
+        // result += "end\n";
         return;
     }
     std::string lhs = node->children[0]->value;
