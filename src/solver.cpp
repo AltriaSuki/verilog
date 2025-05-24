@@ -60,7 +60,7 @@ void solver::read_file(const std::string& filename){
                             positive=true;
                         }else if(token.find("-")!=std::string::npos){
                             positive=false;
-                        }else if(token.find("<=")!=std::string::npos){
+                        }else if(token.find("<=")!=std::string::npos){//要最后处理=
                             constraint_ptr->type="<=";
                             iss>>token;
                             constraint_ptr->value=std::stoi(token);
@@ -137,7 +137,6 @@ void solver::glpk_solver(){
     //添加约束
     size_t m=constraints_collection.size();
     glp_add_rows(lp,m);
-    constexpr double INF=1e9;
     for(size_t i=0;i<m;++i){
         auto it=constraints_collection.begin();
         std::advance(it,i);
@@ -172,13 +171,9 @@ void solver::glpk_solver(){
     }
 
     //求解0-1整数规划
-    glp_iocp parm;
-    glp_init_iocp(&parm);    // 初始化参数结构体
-    parm.msg_lev = GLP_MSG_ALL;
     glp_simplex(lp,NULL);
-    glp_intopt(lp,&parm);
+    glp_intopt(lp,NULL);
 
-    int num_rows = glp_get_num_rows(lp); // 获取约束数量
     //获取最优解
     double obj_val=glp_mip_obj_val(lp);
     std::cout<<"最优值为: "<<obj_val<<std::endl;
