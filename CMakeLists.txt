@@ -15,8 +15,18 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # 收集源文件
 file(GLOB SRC_FILES src/*.cpp)
 
+find_path(GLPK_INCLUDE_DIR glpk.h)
+find_library(GLPK_LIBRARY NAMES glpk)
+
+if(NOT GLPK_INCLUDE_DIR OR NOT GLPK_LIBRARY)
+  message(FATAL_ERROR "GLPK not found")
+endif()
+
+
 # 可执行文件
 add_executable(verilog_compiler ${SRC_FILES})
 
 # 编译选项：开启调试符号和警告信息
 target_compile_options(verilog_compiler PRIVATE -g -Wall)
+target_include_directories(verilog_compiler PRIVATE ${GLPK_INCLUDE_DIR})
+target_link_libraries(verilog_compiler PRIVATE ${GLPK_LIBRARY})

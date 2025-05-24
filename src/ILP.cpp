@@ -216,7 +216,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
     file<<std::endl;
     file<<"subject to"<<std::endl;
     //唯一约束
-    file<<"唯一约束:"<<std::endl;
+    file<<"unique:"<<std::endl;
     for(auto& n:nodes){
         for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
             file<<"X"<<n->name<<std::to_string(i)<<" ";
@@ -228,7 +228,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
         file<<"= 1"<<std::endl;
     }
     //顺序约束
-    file<<"顺序约束:"<<std::endl;
+    file<<"sequence:"<<std::endl;
     for(auto& n:nodes){
         for(auto& pre:n->predecessors){
             for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
@@ -252,7 +252,7 @@ void ILP::make_constraints(std::map<std::string,int>& constraint){
         }
     }
     //资源约束
-    file<<"资源约束:"<<std::endl;
+    file<<"resource:"<<std::endl;
     for(int i=1;i<=lambda+1;++i){
         for(auto&resource:constraint){
             std::string result;
