@@ -181,7 +181,7 @@ void ILP::alap(int max_time){
 //最小化最后一个结点的开工时间
 //constraint表示的是资源有多少
 //ML—RCS
-void ILP::make_constraints(std::map<std::string,int>& constraint){
+void ILP::make_RCS_constraints(std::map<std::string,int>& constraint){
     const std::string filename="./output/output.lp";
     std::ofstream file(filename);
     if(!file.is_open()){

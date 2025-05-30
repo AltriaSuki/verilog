@@ -21,5 +21,6 @@ public:
         this->delay_map=delay_map;
     }
     void read_blif(const std::string& filename);
-    void make_constraints(std::map<std::string,int>& constraints);
+    void make_RCS_constraints(std::map<std::string,int>& constraints);
+    void make_LCS_constraints(int max_time,std::map<std::string,int>& areas);
 };

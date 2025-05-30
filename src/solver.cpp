@@ -1,5 +1,5 @@
 #include "solver.h"
-
+#include"helper.h"
 void solver::read_file(const std::string& filename){
     std::ifstream file(filename);
     if(!file.is_open()){
@@ -13,18 +13,32 @@ void solver::read_file(const std::string& filename){
             std::getline(file,line);
             std::istringstream iss(line);
             std::string token;
+            bool positive=true;//第一位应该是正数
             while(iss>>token){
-                if(token.length()==3){
-                    auto binary_ptr=std::make_unique<binary>();
+                if(token.find("+")!=std::string::npos){
+                    positive=true;
+                    continue;
+                }
+                if(token.find("-")!=std::string::npos){
+                    positive=false;
+                    continue;
+                }
+                auto binary_ptr=std::make_unique<binary>();
+                size_t pos=0;
+                while(pos<token.length() && is_digit_char(token[pos])){
+                    pos++;
+                }
+                if(pos==0){
                     binary_ptr->name=token;
                     binary_ptr->coefficient=1;
-                    min_collection.insert(std::move(binary_ptr));
-                }else if(token.length()>3){
-                    auto binary_ptr=std::make_unique<binary>();
-                    binary_ptr->name=token.substr(1);
-                    binary_ptr->coefficient=std::stoi(token.substr(0,1));
-                    min_collection.insert(std::move(binary_ptr));
+                }else{
+                    binary_ptr->name=token.substr(pos);
+                    binary_ptr->coefficient=std::stoi(token.substr(0,pos));
                 }
+                if(!positive){
+                    binary_ptr->coefficient*=-1;
+                }
+                min_collection.insert(std::move(binary_ptr));
             }
         }else if(line.find("subject to")!=std::string::npos){
             size_t count=0;
@@ -47,14 +61,18 @@ void solver::read_file(const std::string& filename){
                     while(iss>>token){
                         if(pos==0){//pos为0时必定为正数
                             auto binary_ptr=std::make_unique<binary>();
-                            if(token.length()==3){
+                            size_t index=0;
+                            while(index<token.length() && is_digit_char(token[index])){
+                                index++;
+                            }
+                            pos++;
+                            if(index==0){
                                 binary_ptr->name=token;
                                 binary_ptr->coefficient=1;
                             }else{
-                                binary_ptr->name=token.substr(1);
-                                binary_ptr->coefficient=std::stoi(token.substr(0,1));
+                                binary_ptr->name=token.substr(index);
+                                binary_ptr->coefficient=std::stoi(token.substr(0,index));
                             }
-                            pos++;
                             constraint_ptr->binary_collection.insert(std::move(binary_ptr));
                         }else if(token.find("+")!=std::string::npos){
                             positive=true;
@@ -74,12 +92,17 @@ void solver::read_file(const std::string& filename){
                             constraint_ptr->value=std::stoi(token);
                         }else{
                             auto binary_ptr=std::make_unique<binary>();
-                            if(token.length()==3){
+                            size_t index=0;
+                            while(index<token.length() && is_digit_char(token[index])){
+                                index++;
+                            }
+                            if(index==0){
                                 binary_ptr->name=token;
                                 binary_ptr->coefficient=1;
+
                             }else{
-                                binary_ptr->name=token.substr(1);
-                                binary_ptr->coefficient=std::stoi(token.substr(0,1));
+                                binary_ptr->name=token.substr(index);
+                                binary_ptr->coefficient=std::stoi(token.substr(0,index));
                             }
                             if(!positive){
                                 binary_ptr->coefficient*=-1;
@@ -173,6 +196,8 @@ void solver::glpk_solver(){
     //求解0-1整数规划
     glp_simplex(lp,NULL);
     glp_intopt(lp,NULL);
+    //将模型写入文件
+    glp_write_lp(lp,NULL,"output.lp");
 
     //获取最优解
     double obj_val=glp_mip_obj_val(lp);

@@ -33,3 +33,7 @@ void remove_suffix(std::string& str, const std::string& suffix){
         str.erase(str.length() - suffix.length());
     }
 }
+
+bool is_digit_char(char c){
+    return (c>= '0'&& c <='9');
+}
