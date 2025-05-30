@@ -182,6 +182,7 @@ void ILP::alap(int max_time){
 //constraint表示的是资源有多少
 //ML—RCS
 void ILP::make_RCS_constraints(std::map<std::string,int>& constraint){
+    variables_collection.clear();
     const std::string filename="./output/output.lp";
     std::ofstream file(filename);
     if(!file.is_open()){
@@ -248,7 +249,7 @@ void ILP::make_RCS_constraints(std::map<std::string,int>& constraint){
                 file<<std::to_string(i)+"X"+pre->name+std::to_string(i)<<" ";
                 variables_collection.insert("X"+pre->name+std::to_string(i));
             }
-            file<<">= 1"<<std::endl;
+            file<<">= " <<delay_map[pre->type]<<std::endl;
         }
     }
     //资源约束
@@ -287,4 +288,122 @@ void ILP::make_RCS_constraints(std::map<std::string,int>& constraint){
         file<<n<<std::endl;
     }
     file<<"end"<<std::endl;
+}
+
+
+void ILP::make_LCS_constraints(int max_time,std::map<std::string,int>& areas){
+    const std::string filename="./output/output1.lp";
+    std::ofstream file(filename);
+    if(!file.is_open()){
+        std::cerr<<"Error opening file: "<<filename<<std::endl;
+        return;
+    }
+    file<<"Min"<<std::endl;
+    size_t type_of_area=areas.size();
+    int end_time;
+    asap();
+    for(auto& n:nodes){
+        if(n->type=="DUMMY"){
+            end_time=n->start_time_in_asap;
+            break;
+        }
+    }
+    if(max_time<end_time){
+        std::cerr<<"Error: max_time is incorrect."<<std::endl;
+        return;
+    }
+    alap(max_time);
+    for(size_t i=0;i<type_of_area;++i){
+        auto it=areas.begin();
+        std::advance(it,i);
+        resource_index[it->first]=i+1;
+        if(it->second==1){
+            file<<"X"+std::to_string(i+1)<<" ";
+            variables_collection.insert("X"+std::to_string(i+1));
+        }else{
+            file<<std::to_string(it->second)<<"X"+std::to_string(i+1)<<" ";
+            variables_collection.insert("X"+std::to_string(i+1));
+        }
+
+        if(i!=type_of_area-1){
+            file<<"+ ";
+        }
+    }
+
+    file<<std::endl;
+    file<<"subject to"<<std::endl;
+    //唯一约束
+    file<<"unique:"<<std::endl;
+    for(auto& n:nodes){
+        for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
+            file<<"X"<<n->name<<std::to_string(i)<<" ";
+            variables_collection.insert("X"+n->name+std::to_string(i));
+            if(i!=n->start_time_in_alap){
+                file<<"+ ";
+            }
+        }
+        file<<"= 1"<<std::endl;
+    }
+    //顺序约束
+    file<<"sequence:"<<std::endl;
+    for(auto& n:nodes){
+        for(auto& pre:n->predecessors){
+            for(int i=n->start_time_in_asap;i<=n->start_time_in_alap;++i){
+                if(i==1){
+                    file<<"X"+n->name+std::to_string(i)<<" ";
+                    variables_collection.insert("X"+n->name+std::to_string(i));
+                }else{
+                    file<<std::to_string(i)+"X"+n->name+std::to_string(i)<<" ";
+                    variables_collection.insert("X"+n->name+std::to_string(i));
+                }
+                if(i!=n->start_time_in_alap){
+                    file<<"+ ";
+                }
+            }
+            for(int i=pre->start_time_in_asap;i<=pre->start_time_in_alap;++i){
+                file<<"- ";
+                file<<std::to_string(i)+"X"+pre->name+std::to_string(i)<<" ";
+                variables_collection.insert("X"+pre->name+std::to_string(i));
+            }
+            file<<">= " <<delay_map[pre->type]<<std::endl;
+        }
+    }
+    //资源约束
+    file<<"resource:"<<std::endl;
+    for(int i=1;i<=max_time+1;++i){
+        for(auto&resource:areas){
+            std::string result;
+            int delay=delay_map[resource.first];
+            bool has_exec=false;
+            for(int j=i-(delay-1);j<=i;++j){
+                if(j<1){
+                    continue;
+                }
+                //双重累加可以交换位置
+                for(auto& n:nodes){
+                    if(n->type==resource.first){
+                        if(j>=n->start_time_in_asap&&j<=n->start_time_in_alap){
+                            result+="X"+n->name+std::to_string(j)+" + ";
+                            variables_collection.insert("X"+n->name+std::to_string(j));
+                            has_exec=true;
+                        }
+                    }
+                }
+            }
+            if(!has_exec){
+                continue;
+            }
+            std::string temp="+ ";
+            remove_suffix(result,temp);
+            std::string resource_name="X"+std::to_string(resource_index[resource.first]);
+            result+="- "+resource_name+" <= 0";
+            file<<result<<std::endl;
+        }
+    }
+    file<<"binary"<<std::endl;
+    for(auto& n:variables_collection){
+        file<<n<<std::endl;
+    }
+    file<<"end"<<std::endl;
+
 }
